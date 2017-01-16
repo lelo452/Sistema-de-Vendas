@@ -5,33 +5,26 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class DataValor implements Serializable {
-    private static final long serialVersionUID = 1L;
 
-    private Date data;
-    private BigDecimal valor;
+	private static final long serialVersionUID = 1L;
 
-    public DataValor() {
-    }
+	private Date data;
+	private BigDecimal valor;
 
-    public DataValor(Date data, BigDecimal valor) {
-        super();
-        this.data = data;
-        this.valor = valor;
-    }
+	public Date getData() {
+		return data;
+	}
 
-    public Date getData() {
-        return data;
-    }
+	public void setData(Date data) {
+		this.data = data;
+	}
 
-    public void setData(Date data) {
-        this.data = data;
-    }
+	public BigDecimal getValor() {
+		return valor;
+	}
 
-    public BigDecimal getValor() {
-        return valor;
-    }
+	public void setValor(BigDecimal valor) {
+		this.valor = valor;
+	}
 
-    public void setValor(BigDecimal valor) {
-        this.valor = valor;
-    }
 }

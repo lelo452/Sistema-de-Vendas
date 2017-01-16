@@ -1,73 +1,91 @@
 package com.algaworks.pedidovenda.model;
 
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "categoria")
 public class Categoria implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Id @GeneratedValue
-    private Long id;
+	private Long id;
+	private String descricao;
+	private Categoria categoriaPai;
+	private List<Categoria> subcategorias = new ArrayList<>();
 
-    @Column(nullable = false, length = 60)
-    private String descricao;
+	@Id
+	@GeneratedValue
+	public Long getId() {
+		return id;
+	}
 
-    @ManyToOne
-    @JoinColumn(name = "categoria_pai_id")
-    private Categoria categoriaPai;
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    @OneToMany(mappedBy = "categoriaPai", cascade = CascadeType.ALL)
-    private List<Categoria> subcategorias = new ArrayList<>();
+	@Column(nullable = false, length = 60)
+	public String getDescricao() {
+		return descricao;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	@ManyToOne
+	@JoinColumn(name = "categoria_pai_id")
+	public Categoria getCategoriaPai() {
+		return categoriaPai;
+	}
 
-    public String getDescricao() {
-        return descricao;
-    }
+	public void setCategoriaPai(Categoria categoriaPai) {
+		this.categoriaPai = categoriaPai;
+	}
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
+	@OneToMany(mappedBy = "categoriaPai", cascade = CascadeType.ALL)
+	public List<Categoria> getSubcategorias() {
+		return subcategorias;
+	}
 
-    public Categoria getCategoriaPai() {
-        return categoriaPai;
-    }
+	public void setSubcategorias(List<Categoria> subcategorias) {
+		this.subcategorias = subcategorias;
+	}
 
-    public void setCategoriaPai(Categoria categoriaPai) {
-        this.categoriaPai = categoriaPai;
-    }
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
 
-    public List<Categoria> getSubcategorias() {
-        return subcategorias;
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Categoria other = (Categoria) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
 
-    public void setSubcategorias(List<Categoria> subcategorias) {
-        this.subcategorias = subcategorias;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Categoria categoria = (Categoria) o;
-
-        return id.equals(categoria.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return id.hashCode();
-    }
 }

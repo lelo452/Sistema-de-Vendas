@@ -1,3 +1,19 @@
+/*
+ * Copyright 2004-2012 ICEsoft Technologies Canada Corp.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an "AS
+ * IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+ * express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ */
+
 package com.algaworks.pedidovenda.security;
 
 import org.springframework.security.access.AccessDeniedException;
@@ -9,6 +25,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * This class represents...
+ *
+ * @author Ben Simpson <ben.simpson@icesoft.com>
+ *         Date: 2/28/11
+ *         Time: 5:35 PM
+ */
 public class JsfAccessDeniedHandler implements AccessDeniedHandler {
 
     private String loginPath;
@@ -27,7 +50,7 @@ public class JsfAccessDeniedHandler implements AccessDeniedHandler {
             //ctxt.getExternalContext().redirect(redirectUrl);
 
             String ajaxRedirectXml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-                    "<partial-response><redirect url=\""+redirectUrl+"\"></redirect></partial-response>";
+                "<partial-response><redirect url=\""+redirectUrl+"\"></redirect></partial-response>";
             response.setContentType("text/xml");
             response.getWriter().write(ajaxRedirectXml);
         } else {
@@ -76,5 +99,4 @@ public class JsfAccessDeniedHandler implements AccessDeniedHandler {
     public void setLoginPath(String loginPath) {
         this.loginPath = loginPath;
     }
-
 }

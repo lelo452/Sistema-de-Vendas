@@ -1,40 +1,44 @@
 package com.algaworks.pedidovenda.converter;
 
-import com.algaworks.pedidovenda.model.Pedido;
-import com.algaworks.pedidovenda.repository.Pedidos;
-import org.apache.commons.lang3.StringUtils;
-
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import javax.inject.Inject;
+
+import com.algaworks.pedidovenda.model.Pedido;
+import com.algaworks.pedidovenda.repository.Pedidos;
+import com.algaworks.pedidovenda.util.cdi.CDIServiceLocator;
 
 @FacesConverter(forClass = Pedido.class)
 public class PedidoConverter implements Converter {
 
-    @Inject
-    private Pedidos pedidos;
+	//@Inject
+	private Pedidos pedidos;
+	
+	public PedidoConverter() {
+		pedidos = CDIServiceLocator.getBean(Pedidos.class);
+	}
+	
+	@Override
+	public Object getAsObject(FacesContext context, UIComponent component, String value) {
+		Pedido retorno = null;
+		
+		if (value != null) {
+			Long id = new Long(value);
+			retorno = pedidos.porId(id);
+		}
+		
+		return retorno;
+	}
 
-    @Override
-    public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        Pedido retorno = null;
+	@Override
+	public String getAsString(FacesContext context, UIComponent component, Object value) {
+		if (value != null) {
+			Pedido pedido = (Pedido) value;
+			return pedido.getId() == null ? null : pedido.getId().toString();
+		}
+		
+		return "";
+	}
 
-        if (StringUtils.isNotEmpty(value)) {
-            Long id = new Long(value);
-            retorno = pedidos.porId(id);
-        }
-
-        return retorno;
-    }
-
-    @Override
-    public String getAsString(FacesContext context, UIComponent component, Object value) {
-        if (value != null) {
-            Pedido pedido = (Pedido) value;
-            return pedido.getId() == null ? null : pedido.getId().toString();
-        }
-
-        return "";
-    }
 }

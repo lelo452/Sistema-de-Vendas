@@ -1,29 +1,31 @@
 package com.algaworks.pedidovenda.repository.filter;
 
-import com.algaworks.pedidovenda.validation.SKU;
-
 import java.io.Serializable;
 
+import com.algaworks.pedidovenda.validation.SKU;
+
 public class ProdutoFilter implements Serializable {
-    private static final long serialVersionUID = 1L;
 
-    private String sku;
-    private String nome;
+	private static final long serialVersionUID = 1L;
 
-    @SKU
-    public String getSku() {
-        return sku;
-    }
+	private String sku;
+	private String nome;
 
-    public void setSku(String sku) {
-        this.sku = sku == null ? null : sku.toUpperCase();
-    }
+	@SKU
+	public String getSku() {
+		return sku;
+	}
 
-    public String getNome() {
-        return nome;
-    }
+	public void setSku(String sku) {
+		this.sku = sku == null ? null : sku.toUpperCase();
+	}
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
 }

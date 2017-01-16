@@ -14,7 +14,7 @@
                 <td>$numberTool.format("¤ #0.00", $pedido.valorTotal, $locale)</td>
             </tr>
         </table>
-
+        
         <br/>
         <table border="1" cellspacing="0" cellpadding="3">
             <tr>
